@@ -18,6 +18,11 @@ public class DoctorDTO {
     private Integer id;
     private String specialization;
     private Double consultationFee;
-    private User user;
-    private List<Appointment> appointments;
+
+    private Integer userId;
+    private String fullName;
+    private String username;
+    private String password;
+    private String email;
+    private String contactNumber;
 }

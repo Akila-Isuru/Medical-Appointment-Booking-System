@@ -19,7 +19,7 @@ public class Appointment {
     private LocalDate appointmentDate;
     private String status; //(PENDING, CONFIRMED, CANCELLED, COMPLETED)
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 

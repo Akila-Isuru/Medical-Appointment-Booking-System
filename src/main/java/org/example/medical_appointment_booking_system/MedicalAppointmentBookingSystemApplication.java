@@ -11,9 +11,7 @@ public class MedicalAppointmentBookingSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(MedicalAppointmentBookingSystemApplication.class, args);
     }
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+
+
 
 }

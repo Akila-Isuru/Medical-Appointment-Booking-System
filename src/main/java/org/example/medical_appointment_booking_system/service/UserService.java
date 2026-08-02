@@ -2,6 +2,7 @@ package org.example.medical_appointment_booking_system.service;
 
 import org.example.medical_appointment_booking_system.dto.UserDTO;
 import org.example.medical_appointment_booking_system.entity.User;
+import org.example.medical_appointment_booking_system.exception.DuplicateException;
 import org.example.medical_appointment_booking_system.exception.NotFoundException;
 import org.example.medical_appointment_booking_system.repo.DoctorRepo;
 import org.example.medical_appointment_booking_system.repo.UserRepo;
@@ -26,6 +27,10 @@ public class UserService {
     private ModelMapper modelMapper;
 
     public UserDTO registerUser(UserDTO userDTO) {
+
+        if(userRepo.existsByUsername(userDTO.getUsername())){
+            throw new DuplicateException("Username is already in use");
+        }
         User newUser = new User();
         newUser.setUsername(userDTO.getUsername());
         newUser.setPassword(userDTO.getPassword());

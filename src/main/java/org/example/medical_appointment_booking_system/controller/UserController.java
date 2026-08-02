@@ -1,5 +1,6 @@
 package org.example.medical_appointment_booking_system.controller;
 
+import jakarta.validation.Valid;
 import org.example.medical_appointment_booking_system.dto.UserDTO;
 import org.example.medical_appointment_booking_system.service.UserService;
 import org.example.medical_appointment_booking_system.utill.StandardResponse;
@@ -18,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<StandardResponse> registerUser(@RequestBody UserDTO userDTO){
+    public ResponseEntity<StandardResponse> registerUser(@Valid @RequestBody UserDTO userDTO){
          UserDTO newUser = userService.registerUser(userDTO);
         return  new ResponseEntity<>(
                 new StandardResponse(201,"User Successfully Registered !",newUser), HttpStatus.CREATED

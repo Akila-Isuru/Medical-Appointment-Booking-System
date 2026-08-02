@@ -1,15 +1,18 @@
 package org.example.medical_appointment_booking_system.controller;
 
 import jakarta.validation.Valid;
+import org.example.medical_appointment_booking_system.dto.AppointmentCompletionDTO;
 import org.example.medical_appointment_booking_system.dto.AppointmentRequestDTO;
 import org.example.medical_appointment_booking_system.entity.Appointment;
 import org.example.medical_appointment_booking_system.service.AppointmentService;
 import org.example.medical_appointment_booking_system.utill.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -53,6 +56,24 @@ public class AppointmentController {
         );
     }
 
+    @PutMapping("/reschedule/{appointmentId}/{newAppointmentDate}")
+    public ResponseEntity<StandardResponse> rescheduleAppointment(
+            @PathVariable Integer appointmentId,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate newAppointmentDate) {
 
+        String response = appointmentService.appointmentReschedule(appointmentId, newAppointmentDate);
+        return new ResponseEntity<>(
+                new StandardResponse(200, "Appointment Rescheduled Successfully!", response),
+                HttpStatus.OK
+        );
+    }
+
+    @PutMapping("/completeAppointment")
+    public ResponseEntity<StandardResponse> completeAppointment(@Valid @RequestBody AppointmentCompletionDTO appointmentCompletionDTO){
+        AppointmentCompletionDTO completeAppointment = appointmentService.completeAppointment(appointmentCompletionDTO);
+        return new ResponseEntity<>(
+                new StandardResponse(200, "Appointment Completed Successfully!", completeAppointment), HttpStatus.OK
+        );
+    }
 
 }
